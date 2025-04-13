@@ -40,24 +40,20 @@
             document.getElementsByTagName('head')[0].appendChild(meta);
         }
 
-        // Функция для установки размеров канваса с соотношением 9:16
+        // Функция для установки размеров канваса с минимальным соотношением 9:16
         function resizeCanvas() {
-            const aspectRatio = 9 / 16; // Соотношение 9:16
+            const minAspectRatio = 9 / 16; // Минимальное соотношение 9:16
             let width = window.innerWidth;
             let height = window.innerHeight;
 
-            // Вычисляем размеры для сохранения 9:16
-            if (width / height > aspectRatio) {
-                // Окно шире, чем нужно — ограничиваем по высоте
-                width = height * aspectRatio;
-            } else {
-                // Окно выше, чем нужно — ограничиваем по ширине
-                height = width / aspectRatio;
+            // Ограничиваем ширину, чтобы соотношение было не больше 9:16
+            if (width / height > minAspectRatio) {
+                width = height * minAspectRatio; // Устанавливаем ширину по минимальному соотношению
             }
 
             // Устанавливаем размеры канваса
             canvas.style.width = `${width}px`;
-            canvas.style.height = `${height}px`;
+            canvas.style.height = `${height}px`; // Используем всю доступную высоту
             canvas.style.maxWidth = `${width}px`;
             canvas.style.maxHeight = `${height}px`;
         }
