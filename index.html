@@ -33,7 +33,9 @@
         });
     </script>
     <script>
+      console.log('Start Canvas');
       var canvas = document.querySelector("#unity-canvas");
+      console.log('End Canvas');
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
@@ -41,24 +43,33 @@
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
       // user.
+      console.log('Start unityShowBanner');
       function unityShowBanner(msg, type) {
         var warningBanner = document.querySelector("#unity-warning");
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
+        console.log('End updateBannerVisibility');
         var div = document.createElement('div');
+        console.log('start div');
         div.innerHTML = msg;
         warningBanner.appendChild(div);
         if (type == 'error') div.style = 'background: red; padding: 10px;';
         else {
+          console.log('****');
           if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
           setTimeout(function() {
+            console.log('111');
             warningBanner.removeChild(div);
+            console.log('123');
             updateBannerVisibility();
+            console.log('321');
           }, 5000);
         }
         updateBannerVisibility();
       }
+      console.log('End unityShowBanner');
+      
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Build.loader.js";
@@ -116,21 +127,26 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+        console.log('onload')
         createUnityInstance(canvas, config, (progress) => {
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
+                console.log('then in querySelector')
                 document.querySelector("#unity-loading-bar").style.display = "none";
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
                   unityInstance.SetFullscreen(1);
                 };
 
               }).catch((message) => {
+                console.log('ERRORORROROROOR!!!!')
+                
                 alert(message);
               });
             };
 
+      console.log('appendChild')
       document.body.appendChild(script);
-
+      console.log('gooooooooooi')
     </script>
   </body>
 </html>
